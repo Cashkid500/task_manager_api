@@ -4,8 +4,6 @@ require_once '../../../config/bootstrap_file.php';
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
         // Check for authorization
-  
-        
         $sortQuery = '';
         $searchQuery = "";
         $paramString ="";
