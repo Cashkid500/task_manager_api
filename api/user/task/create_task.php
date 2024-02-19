@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the request body
     $request_body = file_get_contents('php://input');
     $data = json_decode($request_body);
+    
     // Alldata sent in
     $name=$description=$startDate=$endDate="";
     if(isset($data->name)){
