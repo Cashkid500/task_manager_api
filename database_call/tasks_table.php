@@ -117,6 +117,22 @@ class Tasks_Table extends Config\DB_Connect
 
     }
 
+    public static function deleteTask($trackid){
+   
+        $connect = static::getDB();
+        $alldata = [];
+        $query = "DELETE FROM `tasks` WHERE trackid = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("s", $trackid);
+        $exe = $stmt->execute();
+        
+        if ( $exe){
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 }
