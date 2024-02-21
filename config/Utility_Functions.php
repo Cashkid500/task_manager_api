@@ -87,6 +87,20 @@ class Utility_Functions  extends DB_Connect
         return $userKey;
     }
 
+    public static function checkIfExist($table, $field, $data){
+        // check field
+        $connect = static::getDB();
+        $query = "SELECT * FROM $table WHERE $field = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("s", $data );
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $num_row = $result->num_rows;
+        if ($num_row > 0){
+           return true;
+        }
+        return false;
+    }
     public static function checkIfCodeisInDB($tableName, $field ,$pubkey) {
         $connect = static::getDB();
         $alldata = [];
@@ -117,6 +131,22 @@ class Utility_Functions  extends DB_Connect
             $random_string .= $random_character;
         }
         return $random_string;
+    }
+    public static function getColumnFromField($tablename, $column ,$fieldname, $fieldvalue){
+        $connect = static::getDB();
+        $query = "SELECT $column FROM $tablename WHERE $fieldname = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("s", $fieldvalue );
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $num_row = $result->num_rows;
+        if ($num_row > 0){
+            $row = $result->fetch_assoc();
+            $value = $row["$column"];
+            return "$value";
+        }else{
+            return false;
+        }
     }
     public static function exceptionHandler($exception)
     {
