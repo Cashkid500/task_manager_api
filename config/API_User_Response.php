@@ -21,6 +21,8 @@ class API_User_Response
     public  static $invalidDataSent="Please send correct data";
     public  static $invalidUserDetail="Invalid username or password";
     public  static $taskCreated="Task created successfully";
+    public  static $taskDeleted="Task deleted successfully";
+    public  static $taskUpdated="Task updated successfully";
     public  static $unauthorized_token="Unauthorized";
 
     public static $welcomeMessage = "Welcome to " . Constants::APP_NAME;
