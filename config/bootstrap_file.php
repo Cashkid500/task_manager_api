@@ -46,7 +46,7 @@ $utility_class_call = new Config\Utility_Functions;
 $api_response_class_call = new Config\API_User_Response;
 $api_status_code_class_call = new Config\API_Status_Code;
 $api_error_code_class_call= new Config\API_Error_Code;
-$api_users_table_class_call= new DatabaseCall\Users_Table;
+// $api_users_table_class_call= new DatabaseCall\Users_Table;
 $api_tasks_table_class_call= new DatabaseCall\Tasks_Table;
 $api_sns_email_class_call= new Config\Mail_SMS_Responses;
 
