@@ -9,18 +9,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode($request_body);
     
     // Alldata sent in
-    $name=$description=$startDate=$endDate="";
+    $name=$description=$date="";
     if(isset($data->name)){
         $name=$utility_class_call::escape($data->name);
     }
     if(isset($data->description)){
          $description=$utility_class_call::escape($data->description);
     }
-    if(isset($data->startDate)){
-         $startDate=$utility_class_call::escape($data->startDate);
-    }
-    if(isset($data->endDate)){
-         $endDate=$utility_class_call::escape($data->endDate);
+    if(isset($data->date)){
+         $date=$utility_class_call::escape($data->date);
     }
 
     // Validate input
@@ -33,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $api_status_code_class_call->respondBadRequest($maindata,$text,$hint,$linktosolve,$errorcode);
     }
 
-    // validate start date
-    if ($startDate && $utility_class_call::validateDate($startDate)) {
+    // validate date
+    if ($utility_class_call::validateDate($date)) {
         $text = $api_response_class_call::$invalidDataSent;
         $errorcode = $api_error_code_class_call::$internalUserWarning;
         $maindata = [];
@@ -43,19 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $api_status_code_class_call->respondBadRequest($maindata,$text,$hint,$linktosolve,$errorcode);
     }
 
-    // validate end date
-    if ($endDate && $utility_class_call::validateDate($endDate)) {
-        $text = $api_response_class_call::$invalidDataSent;
-        $errorcode = $api_error_code_class_call::$internalUserWarning;
-        $maindata = [];
-        $hint = ["Ensure to send valid end date."];
-        $linktosolve = "https://";
-        $api_status_code_class_call->respondBadRequest($maindata,$text,$hint,$linktosolve,$errorcode);
-    }
-
     //call add task db    
     $track_id = $utility_class_call::generateUniqueShortKey("tasks", "trackid");
-    $add = $api_tasks_table_class_call::createTask($track_id, $name, $description, $startDate, $endDate);
+    $add = $api_tasks_table_class_call::createTask($track_id, $name, $description, $date);
     
     if ( $add ){
         $maindata=[];
