@@ -77,16 +77,16 @@ class Tasks_Table extends Config\DB_Connect
         return $alldata;
 
     }
-    public static function createTask($trackid, $name, $description, $date){
-        //SELECT `id`, `trackid`, `name`, `description`, `start_date`, `end_date`, `status`, `created_at`, `updated_at` FROM `tasks` WHERE 1
+    public static function createTask($trackid, $title, $description, $date){
+        //SELECT `id`, `trackid`, `title`, `description`, `start_date`, `end_date`, `status`, `created_at`, `updated_at` FROM `tasks` WHERE 1
         $connect = static::getDB();
         $alldata = [];
         $status = 0;
         // $date = $date : date("Y-m-d H:i:s");
 
-        $query = "INSERT INTO `tasks`(`trackid`, `name`, `description`, `date`,  `status`) VALUES (? , ?, ?,  ?, ?)";
+        $query = "INSERT INTO `tasks`(`trackid`, `title`, `description`, `date`,  `status`) VALUES (? , ?, ?,  ?, ?)";
         $stmt = $connect->prepare($query);
-        $stmt->bind_param("sssss", $trackid, $name, $description, $date, $status);
+        $stmt->bind_param("sssss", $trackid, $title, $description, $date, $status);
         $exe = $stmt->execute();
         
         if ( $exe){
@@ -97,16 +97,16 @@ class Tasks_Table extends Config\DB_Connect
 
     }
 
-    public static function updateTask($trackid, $name, $description, $date){
-        //SELECT `id`, `trackid`, `name`, `description`, `start_date`, `end_date`, `status`, `created_at`, `updated_at` FROM `tasks` WHERE 1
+    public static function updateTask($trackid, $title, $description, $date){
+        //SELECT `id`, `trackid`, `title`, `description`, `start_date`, `end_date`, `status`, `created_at`, `updated_at` FROM `tasks` WHERE 1
         $connect = static::getDB();
         $alldata = [];
         $status = 0;
         // $date = $date : date("Y-m-d H:i:s");
 
-        $query = "UPDATE `tasks` SET `name` = ?, `description` = ?, `date` =? WHERE trackid = ?";
+        $query = "UPDATE `tasks` SET `title` = ?, `description` = ?, `date` =? WHERE trackid = ?";
         $stmt = $connect->prepare($query);
-        $stmt->bind_param("ssss", $name, $description, $date, $trackid);
+        $stmt->bind_param("ssss", $title, $description, $date, $trackid);
         $exe = $stmt->execute();
         
         if ( $exe){
