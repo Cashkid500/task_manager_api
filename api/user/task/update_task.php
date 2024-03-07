@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
     $data = json_decode($request_body);
 
     // Alldata sent in
-    $trackid=$name=$description=$date="";
+    $trackid=$title=$description=$date="";
     if(isset($data->trackid)){
         $trackid=$utility_class_call::escape($data->trackid);
     }
-    if(isset($data->name)){
-        $name=$utility_class_call::escape($data->name);
+    if(isset($data->title)){
+        $title=$utility_class_call::escape($data->title);
     }
     if(isset($data->description)){
          $description=$utility_class_call::escape($data->description);
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
     }
 
     // Validate input
-    if ($utility_class_call::validate_input($trackid) || $utility_class_call::validate_input($name) || $utility_class_call::validate_input($description)) {
+    if ($utility_class_call::validate_input($trackid) || $utility_class_call::validate_input($title) || $utility_class_call::validate_input($description)) {
         $text = $api_response_class_call::$invalidDataSent;
         $errorcode = $api_error_code_class_call::$internalUserWarning;
         $maindata = [];
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
     }
 
     //call update task db
-    $update = $api_tasks_table_class_call::updateTask($trackid, $name, $description, $date);
+    $update = $api_tasks_table_class_call::updateTask($trackid, $title, $description, $date);
 
     if ( $update ){
         $maindata=[];
