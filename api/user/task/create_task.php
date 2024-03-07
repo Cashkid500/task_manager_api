@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode($request_body);
     
     // Alldata sent in
-    $name=$description=$date="";
-    if(isset($data->name)){
-        $name=$utility_class_call::escape($data->name);
+    $title=$description=$date="";
+    if(isset($data->title)){
+        $title=$utility_class_call::escape($data->title);
     }
     if(isset($data->description)){
          $description=$utility_class_call::escape($data->description);
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Validate input
-    if ($utility_class_call::validate_input($name) || $utility_class_call::validate_input($description)) {
+    if ($utility_class_call::validate_input($title) || $utility_class_call::validate_input($description)) {
         $text = $api_response_class_call::$invalidDataSent;
         $errorcode = $api_error_code_class_call::$internalUserWarning;
         $maindata = [];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //call add task db    
     $track_id = $utility_class_call::generateUniqueShortKey("tasks", "trackid");
-    $add = $api_tasks_table_class_call::createTask($track_id, $name, $description, $date);
+    $add = $api_tasks_table_class_call::createTask($track_id, $title, $description, $date);
     
     if ( $add ){
         $maindata=[];
