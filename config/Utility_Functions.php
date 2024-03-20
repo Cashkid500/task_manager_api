@@ -54,7 +54,7 @@ class Utility_Functions  extends DB_Connect
         return $incorrectdata;
     }
 
-    public static function validateDate($date, $format = 'Y-m-d'){
+    public static function validateDate($date, $format = 'Y/m/d H:i:s'){
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) === $date;
     }
